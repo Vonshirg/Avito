@@ -1,0 +1,33 @@
+ARG NODE_VERSION=16
+FROM node:${NODE_VERSION}-alpine as base
+
+WORKDIR /usr/src/app
+
+# Стадия зависимостей
+FROM base as deps
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
+# Стадия сборки
+FROM deps as build
+COPY . .
+
+# Стадия финального образа
+FROM base as final
+ENV NODE_ENV=production
+USER node
+
+# Копируем зависимости
+COPY --from=deps /usr/src/app/node_modules ./node_modules
+
+# Копируем серверные файлы
+COPY --from=build /usr/src/app/server ./server
+
+# Копируем папку с изображениями
+COPY --from=build /usr/src/app/public/images /usr/src/app/public/images
+
+WORKDIR /usr/src/app/server
+
+EXPOSE 3000
+
+CMD ["node", "app.js"]
