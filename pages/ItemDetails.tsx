@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchItemById, Item } from '../api';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function ItemDetails() {
+export function ItemDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [item, setItem] = useState<Item | null>(null);

@@ -1,0 +1,35 @@
+## Установка
+
+1. Клонируйте репозиторий:
+
+    ```bash
+    git clone https://github.com/Vonshirg/Avito.git
+    cd Avito
+    ```
+
+2. Установите зависимости:
+
+    ```bash
+    npm install
+    ```
+
+## Запуск проекта
+
+Для запуска проекта с помощью Docker Compose, выполните команду:
+
+```bash
+docker-compose up --build
+```
+## Запуск проекта без Docker
+ Соберите проект с помощью Webpack:
+ npm run build
+ Запустите сервер backend часть:
+ node app.js  
+ Запустите Frontend:
+ npm run start
+
+ Проект будет доступен по адресу: http://localhost:5000.
+## Команды
+    npm run build — Собрать проект для продакшн.
+    npm run test - запуск тестов.
+    npm run format - запуск  prettier и postcss.    

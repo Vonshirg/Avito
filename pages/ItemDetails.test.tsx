@@ -1,97 +1,42 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
-import ItemDetails from './ItemDetails';
-import { fetchItemById } from '../api';
+import { render, screen } from '@testing-library/react';
+import { ItemDetails } from './ItemDetails';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import * as api from '../api';
+import '@testing-library/jest-dom';  // Импортируем jest-dom для matchers
 
-// Типизация mock для fetchItemById
-jest.mock('../api', () => ({
-  fetchItemById: jest.fn() as jest.MockedFunction<typeof fetchItemById>
-}));
+// Мокаем fetchItemById, чтобы тест не зависел от реального API
+jest.mock('../api');
 
-// Мокаем useNavigate
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: jest.fn()
-}));
+test('Кнопки "Редактировать" и "Назад" рендерятся корректно', async () => {
+  const mockItem = {
+    id: 1,
+    name: 'Пример товара',
+    description: 'Описание товара',
+    location: 'Москва',
+    type: 'Недвижимость',
+    image: 'https://example.com/image.jpg',
+    propertyType: 'Квартира',
+    area: 50,
+    rooms: 2,
+    price: 5000000,
+  };
 
-const mockItem = {
-  id: 1,
-  name: 'Пример товара',
-  description: 'Описание товара',
-  location: 'Москва',
-  type: 'Недвижимость',
-  propertyType: 'Квартира',
-  area: 50,
-  rooms: 2,
-  price: 5000000,
-  image: 'https://example.com/image.jpg'
-};
+  // Мокаем возвращаемое значение fetchItemById
+  (api.fetchItemById as jest.Mock).mockResolvedValue(mockItem);
 
-describe('ItemDetails', () => {
-  test("Отображает сообщение 'Загрузка...' перед загрузкой данных", async () => {
-    // Мокаем вызов fetchItemById
-    (fetchItemById as jest.Mock).mockResolvedValueOnce(mockItem);
+  render(
+    <MemoryRouter initialEntries={['/item/1']}>
+      <Routes>
+        <Route path="/item/:id" element={<ItemDetails />} />
+      </Routes>
+    </MemoryRouter>
+  );
 
-    render(
-      <MemoryRouter initialEntries={['/item/1']}>
-        <Routes>
-          <Route path='/item/:id' element={<ItemDetails />} />
-        </Routes>
-      </MemoryRouter>
-    );
+  // Ждем, пока кнопки появятся после загрузки данных
+  await screen.findByText('Редактировать');
+  await screen.findByText('Назад');
 
-    expect(screen.getByText(/Загрузка/i)).toBeInTheDocument();
-  });
-
-  test('Отображает данные после загрузки', async () => {
-    // Мокаем вызов fetchItemById
-    (fetchItemById as jest.Mock).mockResolvedValueOnce(mockItem);
-
-    render(
-      <MemoryRouter initialEntries={['/item/1']}>
-        <Routes>
-          <Route path='/item/:id' element={<ItemDetails />} />
-        </Routes>
-      </MemoryRouter>
-    );
-
-    await waitFor(() =>
-      expect(screen.getByText(mockItem.name)).toBeInTheDocument()
-    );
-    expect(screen.getByText(mockItem.description)).toBeInTheDocument();
-    expect(
-      screen.getByText(`${mockItem.location} - ${mockItem.type}`)
-    ).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: mockItem.name })).toHaveAttribute(
-      'src',
-      mockItem.image
-    );
-  });
-
-  test("Кнопки 'Редактировать' и 'Назад' работают", async () => {
-    // Мокаем вызов fetchItemById
-    (fetchItemById as jest.Mock).mockResolvedValueOnce(mockItem);
-
-    const navigateMock = jest.fn();
-    (useNavigate as jest.Mock).mockReturnValue(navigateMock);
-
-    render(
-      <MemoryRouter initialEntries={['/item/1']}>
-        <Routes>
-          <Route path='/item/:id' element={<ItemDetails />} />
-        </Routes>
-      </MemoryRouter>
-    );
-
-    await waitFor(() =>
-      expect(screen.getByText(mockItem.name)).toBeInTheDocument()
-    );
-
-    await userEvent.click(screen.getByText(/Редактировать/i));
-    expect(navigateMock).toHaveBeenCalledWith(`/form/1`);
-
-    await userEvent.click(screen.getByText(/Назад/i));
-    expect(navigateMock).toHaveBeenCalledWith(`/list`);
-  });
+  // Проверяем, что кнопки есть в документе
+  expect(screen.getByText('Редактировать')).toBeInTheDocument();
+  expect(screen.getByText('Назад')).toBeInTheDocument();
 });

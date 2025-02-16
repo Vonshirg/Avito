@@ -3,5 +3,6 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest' // если используете TypeScript
   },
-  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx']
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  testEnvironment: 'jest-fixed-jsdom'
 };
