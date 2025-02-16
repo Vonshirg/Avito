@@ -9,7 +9,7 @@ export interface BaseItem {
   description: string;
   location: string;
   type: 'Недвижимость' | 'Авто' | 'Услуги';
-  image: string;  // Убираем "?" для обязательного поля
+  image: string; // Убираем "?" для обязательного поля
 }
 
 export interface RealEstateItem extends BaseItem {
@@ -75,9 +75,12 @@ export const updateItem = async (id: number, item: Partial<Item>) => {
 };
 
 // Удаление объявления
-export const deleteItem = async (id: number, setItems: React.Dispatch<React.SetStateAction<Item[]>>) => {
+export const deleteItem = async (
+  id: number,
+  setItems: React.Dispatch<React.SetStateAction<Item[]>>
+) => {
   console.log('Отправка DELETE-запроса на:', `${API_URL}/${id}`);
-  
+
   try {
     // Отправка DELETE-запроса
     await axios.delete(`${API_URL}/${id}`);
@@ -87,6 +90,6 @@ export const deleteItem = async (id: number, setItems: React.Dispatch<React.SetS
 
     console.log(`Объявление с id ${id} удалено.`);
   } catch (error) {
-    console.error("Ошибка при удалении:", error);
+    console.error('Ошибка при удалении:', error);
   }
 };

@@ -1,6 +1,13 @@
-
 .modal {
-  font-family: "Segoe UI","Helvetica Neue","Lucida Grande","Roboto","Ebrima","Nirmala UI","Gadugi","Segoe Xbox Symbol","Segoe UI Symbol","Meiryo UI","Khmer UI","Tunga","Lao UI","Raavi","Iskoola Pota","Latha","Leelawadee","Microsoft YaHei UI","Microsoft JhengHei UI","Malgun Gothic","Estrangelo Edessa","Microsoft Himalaya","Microsoft New Tai Lue","Microsoft PhagsPa","Microsoft Tai Le","Microsoft Yi Baiti","Mongolian Baiti","MV Boli","Myanmar Text","Cambria Math";
+  font-family:
+    'Segoe UI', 'Helvetica Neue', 'Lucida Grande', 'Roboto', 'Ebrima',
+    'Nirmala UI', 'Gadugi', 'Segoe Xbox Symbol', 'Segoe UI Symbol', 'Meiryo UI',
+    'Khmer UI', 'Tunga', 'Lao UI', 'Raavi', 'Iskoola Pota', 'Latha',
+    'Leelawadee', 'Microsoft YaHei UI', 'Microsoft JhengHei UI',
+    'Malgun Gothic', 'Estrangelo Edessa', 'Microsoft Himalaya',
+    'Microsoft New Tai Lue', 'Microsoft PhagsPa', 'Microsoft Tai Le',
+    'Microsoft Yi Baiti', 'Mongolian Baiti', 'MV Boli', 'Myanmar Text',
+    'Cambria Math';
   position: relative;
   top: 10%;
   left: 50%;
@@ -39,7 +46,9 @@ button {
   border: none;
 }
 
-input, select, button {
+input,
+select,
+button {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
@@ -58,7 +67,8 @@ h1 {
   text-align: center;
 }
 
-.step1, .step2 {
+.step1,
+.step2 {
   display: flex;
   flex-direction: column;
 }
@@ -91,29 +101,37 @@ select {
 }
 
 .modal_list {
-  font-family: "Segoe UI", "Helvetica Neue", "Lucida Grande", "Roboto", "Ebrima", "Nirmala UI", "Gadugi", "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", "Tunga", "Lao UI", "Raavi", "Iskoola Pota", "Latha", "Leelawadee", "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math";
-  position: fixed; 
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
+  font-family:
+    'Segoe UI', 'Helvetica Neue', 'Lucida Grande', 'Roboto', 'Ebrima',
+    'Nirmala UI', 'Gadugi', 'Segoe Xbox Symbol', 'Segoe UI Symbol', 'Meiryo UI',
+    'Khmer UI', 'Tunga', 'Lao UI', 'Raavi', 'Iskoola Pota', 'Latha',
+    'Leelawadee', 'Microsoft YaHei UI', 'Microsoft JhengHei UI',
+    'Malgun Gothic', 'Estrangelo Edessa', 'Microsoft Himalaya',
+    'Microsoft New Tai Lue', 'Microsoft PhagsPa', 'Microsoft Tai Le',
+    'Microsoft Yi Baiti', 'Mongolian Baiti', 'MV Boli', 'Myanmar Text',
+    'Cambria Math';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   width: 400px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000; 
+  z-index: 1000;
 }
 
 .closeButton {
   position: absolute;
-  top: -10px; 
-  right: -10px; 
+  top: -10px;
+  right: -10px;
   width: 32px;
   height: 32px;
   background-color: #ff4d4d;
   color: white;
   border: none;
-  border-radius: 50%; 
+  border-radius: 50%;
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
@@ -121,12 +139,14 @@ select {
   align-items: center;
   justify-content: center;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, transform 0.2s;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
 }
 
 .closeButton:hover {
   background-color: #cc0000;
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 
 .closeButton:focus {
@@ -156,8 +176,6 @@ select {
   background-color: darkred;
 }
 
-
-
 .itemList {
   max-width: 1200px;
   margin: 0 auto;
@@ -169,8 +187,6 @@ select {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
-
-
 
 .list {
   display: grid;
@@ -188,7 +204,6 @@ select {
   flex-direction: column;
   align-items: center;
 }
-
 
 .listItemImage {
   width: 100%;

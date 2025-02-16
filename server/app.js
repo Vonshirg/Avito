@@ -6,22 +6,30 @@ const path = require('path');
 const ItemTypes = {
   REAL_ESTATE: 'Недвижимость',
   AUTO: 'Авто',
-  SERVICES: 'Услуги',
+  SERVICES: 'Услуги'
 };
 
 const app = express();
 app.use(bodyParser.json());
 
 // Настройка CORS
-app.use(cors({
-  origin: '*',
-  methods: 'GET,POST,PUT,DELETE,OPTIONS',
-  allowedHeaders: 'Content-Type,Authorization',
-}));
+app.use(
+  cors({
+    origin: '*',
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization'
+  })
+);
 
 // Настройка для обслуживания статических файлов
-console.log("Serving static files from:", path.join(__dirname, '..', 'public', 'images'));
-app.use('/images', express.static(path.join(__dirname, '..', 'public', 'images')));
+console.log(
+  'Serving static files from:',
+  path.join(__dirname, '..', 'public', 'images')
+);
+app.use(
+  '/images',
+  express.static(path.join(__dirname, '..', 'public', 'images'))
+);
 
 // In-memory хранилище для объявлений
 let items = [];
@@ -78,7 +86,7 @@ app.post('/items', (req, res) => {
     location,
     type,
     image: itemImage, // Сохраняем относительный путь к изображению
-    ...rest,
+    ...rest
   };
 
   items.push(item);
@@ -92,7 +100,7 @@ app.get('/items', (req, res) => {
 
 // Получение объявления по ID
 app.get('/items/:id', (req, res) => {
-  const item = items.find(i => i.id === parseInt(req.params.id, 10));
+  const item = items.find((i) => i.id === parseInt(req.params.id, 10));
   if (item) {
     res.json(item);
   } else {
@@ -102,7 +110,7 @@ app.get('/items/:id', (req, res) => {
 
 // Обновление объявления по его id
 app.put('/items/:id', (req, res) => {
-  const item = items.find(i => i.id === parseInt(req.params.id, 10));
+  const item = items.find((i) => i.id === parseInt(req.params.id, 10));
   if (item) {
     Object.assign(item, req.body);
     res.json(item);
@@ -113,7 +121,9 @@ app.put('/items/:id', (req, res) => {
 
 // Удаление объявления по его id
 app.delete('/items/:id', (req, res) => {
-  const itemIndex = items.findIndex(i => i.id === parseInt(req.params.id, 10));
+  const itemIndex = items.findIndex(
+    (i) => i.id === parseInt(req.params.id, 10)
+  );
   if (itemIndex !== -1) {
     items.splice(itemIndex, 1);
     res.status(204).send();

@@ -8,43 +8,52 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    clean: true, // Очищает папку dist перед сборкой
+    clean: true // Очищает папку dist перед сборкой
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx']
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: 'babel-loader'
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader' // Добавляем PostCSS
+        ]
       },
       {
         test: /\.(scss|sass)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+          'postcss-loader' // Для SCSS/SASS тоже добавляем PostCSS
+        ]
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
-        type: 'asset/resource',
-      },
-    ],
+        type: 'asset/resource'
+      }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './pages/index.html',
+      template: './pages/index.html'
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin()
   ],
   devServer: {
     static: path.resolve(__dirname, 'dist'),
     compress: true,
     port: 5000,
     historyApiFallback: true, // Позволяет использовать маршрутизацию React
-    open: true, // Автоматически открывает браузер
-  },
+    open: true // Автоматически открывает браузер
+  }
 };

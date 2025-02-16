@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { fetchItems, deleteItem, Item } from "../api";
-import { useNavigate } from "react-router-dom";
-import "./style/styles.css";
+import React, { useState, useEffect } from 'react';
+import { fetchItems, deleteItem, Item } from '../api';
+import { useNavigate } from 'react-router-dom';
+import './style/styles.css';
 
 const categoryFilters: Record<string, string[]> = {
-  Недвижимость: ["price", "area", "rooms"],
-  Авто: ["brand", "year", "mileage"],
-  Услуги: ["serviceType", "cost"],
+  Недвижимость: ['price', 'area', 'rooms'],
+  Авто: ['brand', 'year', 'mileage'],
+  Услуги: ['serviceType', 'cost']
 };
 
 function ItemList() {
   const [items, setItems] = useState<Item[]>([]);
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState<string>("");
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState<string>('');
   const [extraFilters, setExtraFilters] = useState<Record<string, string>>({});
   const [page, setPage] = useState(1);
   const [itemsPerPage] = useState(5);
@@ -65,7 +65,7 @@ function ItemList() {
   const handleExtraFilterChange = (field: string, value: string) => {
     setExtraFilters((prev) => ({
       ...prev,
-      [field]: value,
+      [field]: value
     }));
   };
 
@@ -84,27 +84,27 @@ function ItemList() {
   };
 
   return (
-    <div className="itemList">
-      <div className="searchAndFilters">
-        <div className="searchContainer">
+    <div className='itemList'>
+      <div className='searchAndFilters'>
+        <div className='searchContainer'>
           <select
             value={category}
             onChange={(e) => {
               setCategory(e.target.value);
               setPage(1); // Сброс страницы на 1 при изменении категории
             }}
-            className="filterSelect"
+            className='filterSelect'
           >
-            <option value="">Все категории</option>
-            <option value="Недвижимость">Недвижимость</option>
-            <option value="Авто">Авто</option>
-            <option value="Услуги">Услуги</option>
+            <option value=''>Все категории</option>
+            <option value='Недвижимость'>Недвижимость</option>
+            <option value='Авто'>Авто</option>
+            <option value='Услуги'>Услуги</option>
           </select>
 
           <input
-            type="text"
-            placeholder="Поиск..."
-            className="searchBar"
+            type='text'
+            placeholder='Поиск...'
+            className='searchBar'
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -112,20 +112,20 @@ function ItemList() {
             }}
           />
         </div>
-        <button className="addButton" onClick={() => navigate("/form")}>
+        <button className='addButton' onClick={() => navigate('/form')}>
           Разместить объявление
         </button>
       </div>
 
       {category && categoryFilters[category] && (
-        <div className="extraFilters">
+        <div className='extraFilters'>
           {categoryFilters[category].map((field) => (
             <input
               key={field}
-              type="text"
+              type='text'
               placeholder={`Фильтр по ${field}`}
-              className="extraFilterInput"
-              value={extraFilters[field] || ""}
+              className='extraFilterInput'
+              value={extraFilters[field] || ''}
               onChange={(e) => {
                 handleExtraFilterChange(field, e.target.value);
                 setPage(1); // Сброс страницы на 1 при изменении дополнительного фильтра
@@ -135,15 +135,15 @@ function ItemList() {
         </div>
       )}
 
-      <ul className="list">
+      <ul className='list'>
         {paginatedItems.map((item) => (
           <li
             key={item.id}
-            className="listItem"
+            className='listItem'
             onClick={() => handleCardClick(item)}
           >
             <button
-              className="deleteButton"
+              className='deleteButton'
               onClick={(event) => {
                 event.stopPropagation();
                 handleDelete(item.id!);
@@ -152,16 +152,16 @@ function ItemList() {
               &times;
             </button>
             <img
-              src={item.image || "/placeholder.jpg"}
-              alt="item"
-              className="listItemImage"
+              src={item.image || '/placeholder.jpg'}
+              alt='item'
+              className='listItemImage'
             />
-            <div className="listItemDetails">
-              <h3 className="listItemTitle">{item.name}</h3>
+            <div className='listItemDetails'>
+              <h3 className='listItemTitle'>{item.name}</h3>
               <p>
                 {item.location} - {item.type}
               </p>
-              <div className="listItemButtons">
+              <div className='listItemButtons'>
                 <button onClick={() => navigate(`/form/${item.id}`)}>
                   Редактировать
                 </button>
@@ -172,18 +172,18 @@ function ItemList() {
       </ul>
 
       {totalPages > 1 && (
-        <div className="paginationButtons">
+        <div className='paginationButtons'>
           <button
             onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
             disabled={page === 1}
-            className="paginationButton"
+            className='paginationButton'
           >
             Назад
           </button>
           <button
             onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
             disabled={page === totalPages}
-            className="paginationButton"
+            className='paginationButton'
           >
             Вперёд
           </button>
@@ -191,8 +191,8 @@ function ItemList() {
       )}
 
       {modalItem && (
-        <div className="overlay" onClick={closeModal}>
-          <div className="modal_list" onClick={(e) => e.stopPropagation()}>
+        <div className='overlay' onClick={closeModal}>
+          <div className='modal_list' onClick={(e) => e.stopPropagation()}>
             <h2>{modalItem.name}</h2>
             <p>{modalItem.description}</p>
             <p>
@@ -204,12 +204,12 @@ function ItemList() {
                 <img
                   src={modalItem.image}
                   alt={modalItem.name}
-                  style={{ width: "400px", height: "auto" }}
+                  style={{ width: '400px', height: 'auto' }}
                 />
               </div>
             )}
 
-            {modalItem.type === "Недвижимость" && (
+            {modalItem.type === 'Недвижимость' && (
               <>
                 <p>Тип недвижимости: {modalItem.propertyType}</p>
                 <p>Площадь: {modalItem.area} м²</p>
@@ -218,7 +218,7 @@ function ItemList() {
               </>
             )}
 
-            {modalItem.type === "Авто" && (
+            {modalItem.type === 'Авто' && (
               <>
                 <p>Бренд: {modalItem.brand}</p>
                 <p>Модель: {modalItem.model}</p>
@@ -227,7 +227,7 @@ function ItemList() {
               </>
             )}
 
-            {modalItem.type === "Услуги" && (
+            {modalItem.type === 'Услуги' && (
               <>
                 <p>Тип услуги: {modalItem.serviceType}</p>
                 <p>Опыт: {modalItem.experience} лет</p>
@@ -240,7 +240,7 @@ function ItemList() {
             <button onClick={() => navigate(`/form/${modalItem.id}`)}>
               Редактировать
             </button>
-            <button className="closeButton" onClick={closeModal}>
+            <button className='closeButton' onClick={closeModal}>
               &times;
             </button>
           </div>

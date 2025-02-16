@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { fetchItemById } from '../api';
-import { Item} from '../api';
+import React, { useEffect, useState } from 'react';
+import { fetchItemById, Item } from '../api';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function ItemDetails() {
@@ -22,17 +21,23 @@ function ItemDetails() {
     <div>
       <h1>{item.name}</h1>
       <p>{item.description}</p>
-      <p>{item.location} - {item.type}</p>
+      <p>
+        {item.location} - {item.type}
+      </p>
 
       {/* Если изображение есть, отображаем его */}
       {item.image && (
         <div>
-          <img src={item.image} alt={item.name} style={{ width: '300px', height: 'auto' }} />
+          <img
+            src={item.image}
+            alt={item.name}
+            style={{ width: '300px', height: 'auto' }}
+          />
         </div>
       )}
 
       {/* Отображаем дополнительные поля в зависимости от типа */}
-      {item.type === "Недвижимость" && (
+      {item.type === 'Недвижимость' && (
         <>
           <p>Тип недвижимости: {item.propertyType}</p>
           <p>Площадь: {item.area} м²</p>
@@ -41,7 +46,7 @@ function ItemDetails() {
         </>
       )}
 
-      {item.type === "Авто" && (
+      {item.type === 'Авто' && (
         <>
           <p>Бренд: {item.brand}</p>
           <p>Модель: {item.model}</p>
@@ -50,7 +55,7 @@ function ItemDetails() {
         </>
       )}
 
-      {item.type === "Услуги" && (
+      {item.type === 'Услуги' && (
         <>
           <p>Тип услуги: {item.serviceType}</p>
           <p>Опыт: {item.experience} лет</p>

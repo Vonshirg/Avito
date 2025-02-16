@@ -18,7 +18,7 @@ services:
       - 3000:3000
     networks:
       - avito-network
-    command: node app.js 
+    command: node app.js
   client:
     build:
       context: .
@@ -26,11 +26,10 @@ services:
       - 5000:5000
     networks:
       - avito-network
-    command: npm run start 
+    command: npm run start
 networks:
   avito-network:
     driver: bridge
-
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
 # start the database before your application. The `db-data` volume persists the
